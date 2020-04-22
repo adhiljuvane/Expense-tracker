@@ -1,0 +1,184 @@
+$body-background: #e7e7e7fd;
+$title-bottom-border-color: #505050;
+$inc-exp-container-background: #ffffff;
+$income-green-color: rgb(16, 173, 2);
+$expense-red-color: rgb(209, 16, 16);
+
+$font-weights: ("regular": 400,
+  "medium": 500,
+  "bold": 700,
+);
+
+@function weight($weight-name) {
+  @return map-get($font-weights, $weight-name);
+}
+
+@mixin inc-exp-cont-shadow {
+  -webkit-box-shadow: 0px 0px 16px 4px rgba(0, 0, 0, 0.26);
+  -moz-box-shadow: 0px 0px 16px 4px rgba(0, 0, 0, 0.26);
+  box-shadow: 0px 0px 16px 4px rgba(0, 0, 0, 0.26);
+}
+
+@mixin flexCenter($direction) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin inputBoxStyle {
+  border: none;
+  font-size: 14px;
+  padding: 8px;
+  margin: 5px 0px;
+  @include inc-exp-cont-shadow();
+  border-radius: 5px;
+}
+
+@mixin buttonStyle {
+  font-size: 12px;
+  padding: 10px;
+  margin: 10px 0px;
+  background-color: #ffffff;
+  @include inc-exp-cont-shadow();
+  border: none;
+  border-radius: 5px;
+}
+
+// css
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0px;
+  font-family: "Lato", sans-serif;
+}
+
+.app {
+  @include flexCenter(column);
+  height: 100%;
+  min-height: 100vh;
+  font-weight: weight(regular);
+  background-color: $body-background;
+}
+
+//Balance.js
+
+.balance-container {
+  @include flexCenter(column);
+  align-items: flex-start;
+
+  .balance {
+    font-weight: weight(bold);
+  }
+}
+
+//IncomeExpenses.js
+
+.inc-exp-container {
+  @include flexCenter(row);
+  @include inc-exp-cont-shadow;
+  width: 100%;
+  margin: 10px 0px;
+  background-color: $inc-exp-container-background;
+  padding: 20px;
+
+  .income {
+    @include flexCenter(column);
+    width: 50%;
+
+    .amount {
+      color: $income-green-color;
+    }
+  }
+
+  .expenses {
+    @include flexCenter(column);
+    border-left: 1px solid black;
+    width: 50%;
+  }
+
+  .amount {
+    color: $expense-red-color;
+  }
+}
+
+//TransactionsList.js
+
+.trans-list-container {
+  @include flexCenter(column);
+  justify-content: flex-start;
+
+  h3 {
+    border-bottom: 1px solid $title-bottom-border-color;
+    width: 100%;
+  }
+
+  ul {
+    width: 100%;
+    padding: 0;
+    max-height: 250px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+
+    li {
+      height: 40px;
+      @include flexCenter(row);
+      list-style-type: none;
+      justify-content: space-between;
+      background-color: $title-bottom-border-color;
+      color: white;
+      padding-left: 4px;
+      border-radius: 10px;
+      margin: 10px;
+      opacity: 0.9;
+
+      button {
+        height: 100%;
+        width: 100%;
+        @include flexCenter(row);
+        border-radius: 0px 10px 10px 0px;
+        border-width: 0px;
+        color: white;
+        background-color: $title-bottom-border-color;
+        margin-left: 3px;
+      }
+    }
+
+    .income {
+      background-color: $income-green-color;
+    }
+
+    .expense {
+      background-color: $expense-red-color;
+    }
+  }
+}
+
+//AddTransaction.js
+
+.add-trans-container {
+  @include flexCenter(column);
+
+  h3 {
+    border-bottom: 1px solid $title-bottom-border-color;
+    width: 100%;
+  }
+
+  .form-control {
+    @include flexCenter(column);
+    align-items: flex-start;
+    margin: 10px 0px;
+
+    input {
+      @include inputBoxStyle();
+      width: 100%;
+    }
+  }
+
+  button {
+    @include buttonStyle();
+    width: 100%;
+  }
+}
